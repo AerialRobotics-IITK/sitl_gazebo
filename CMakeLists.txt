@@ -20,8 +20,11 @@ message(STATUS "cmake build type: ${CMAKE_BUILD_TYPE}")
 
 project(mavlink_sitl_gazebo VERSION 1.0.0)
 
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+
+# Set c++11 or higher
+include(EnableC++XX)
+# Set c11
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -32,22 +35,16 @@ include(GNUInstallDirs)
 ## Find Dependencies ##
 #######################
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
-
 option(BUILD_GSTREAMER_PLUGIN "enable gstreamer plugin" ON)
 option(BUILD_ROS_INTERFACE "Enable building ROS dependent plugins" OFF)
 
 option(SEND_VISION_ESTIMATION_DATA "Send Mavlink VISION_POSITION_ESTIMATE msgs" OFF)
 option(SEND_ODOMETRY_DATA "Send Mavlink ODOMETRY msgs" OFF)
 
-# Set c++11 or higher
-include(EnableC++XX)
-
 ## System dependencies are found with CMake's conventions
 find_package(Boost 1.58 REQUIRED COMPONENTS system thread filesystem)
 find_package(gazebo REQUIRED)
 find_package(PkgConfig REQUIRED)
-find_program(px4 REQUIRED)
 # Note: If using catkin, Python 2 is found since it points
 # to the Python libs installed with the ROS distro
 if (NOT CATKIN_DEVEL_PREFIX)
@@ -348,6 +345,7 @@ add_library(gazebo_barometer_plugin SHARED src/gazebo_barometer_plugin.cpp)
 add_library(gazebo_catapult_plugin SHARED src/gazebo_catapult_plugin.cpp)
 add_library(gazebo_usv_dynamics_plugin SHARED src/gazebo_usv_dynamics_plugin.cpp)
 add_library(gazebo_parachute_plugin SHARED src/gazebo_parachute_plugin.cpp)
+add_library(gazebo_airship_dynamics_plugin SHARED src/gazebo_airship_dynamics_plugin.cpp)
 
 set(plugins
   gazebo_airspeed_plugin
@@ -373,6 +371,7 @@ set(plugins
   gazebo_catapult_plugin
   gazebo_usv_dynamics_plugin
   gazebo_parachute_plugin
+  gazebo_airship_dynamics_plugin
   )
 
 foreach(plugin ${plugins})
