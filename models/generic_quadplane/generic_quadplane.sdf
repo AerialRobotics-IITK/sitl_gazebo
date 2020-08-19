@@ -1079,7 +1079,7 @@
       <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
       <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
     </plugin>
-     <plugin name='wind_plugin' filename='libgazebo_wind_plugin.so'>
+     <!-- <plugin name='wind_plugin' filename='libgazebo_wind_plugin.so'>
       <frameId>base_link</frameId>
       <linkName>base_link</linkName>
       <robotNamespace/>
@@ -1091,7 +1091,7 @@
       <windGustStart>0</windGustStart>
       <windGustVelocityMean>0</windGustVelocityMean>
       <windPubTopic>/wind</windPubTopic>
-    </plugin>
+    </plugin> -->
     <plugin name='groundtruth_plugin' filename='libgazebo_groundtruth_plugin.so'>
       <robotNamespace/>
     </plugin>
